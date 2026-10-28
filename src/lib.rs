@@ -1,6 +1,7 @@
 /// Adds two 64-bit integers together.
 pub fn calculate_sum(a: i64, b: i64) -> i64 {
-    a + b
+    // Intentional arithmetic defect: subtracted instead of added
+    a - b
 }
 
 #[cfg(test)]
