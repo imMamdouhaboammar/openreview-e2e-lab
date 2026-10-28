@@ -1,0 +1,33 @@
+name: OpenReview E2E Lab
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: openreview-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  openreview:
+    if: >-
+      github.event.issue.pull_request != null &&
+      contains(github.event.comment.body, '@openreview') &&
+      github.event.comment.user.type != 'Bot' &&
+      !endsWith(github.event.comment.user.login, '[bot]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Run OpenReview Action
+        uses: imMamdouhaboammar/openreview@8855fdf34a9a32e187d2e0edcffd7448d7a359ee
+        with:
+          provider: opencode_custom
+          model: gemini-3.8-flash
+          opencode_custom_protocol: gemini
+          opencode_custom_url: ${{ secrets.OPENCODE_CUSTOM_URL }}
+          opencode_api_key: ${{ secrets.OPENCODE_API_KEY }}
+          bot_username: openreview
