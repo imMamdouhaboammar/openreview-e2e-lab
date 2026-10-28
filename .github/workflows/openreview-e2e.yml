@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Run OpenReview Action
-        uses: imMamdouhaboammar/openreview@6fe85d32ca6de4150723286198f037dae00725ce
+        uses: imMamdouhaboammar/openreview@b58b4dfa3ad863ac6faab2bfb77510010dfdb64b
         with:
           provider: opencode_custom
           model: gemini-3.8-flash
